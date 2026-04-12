@@ -1,117 +1,119 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=800"/>
 <title>CC Daily</title>
 <style>
-  * { margin: ding: 0; box-sizing: border-box; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  body {
-    width: 800px;
-    height: 480px;
-    overflow: hidden;
-    background: #000;
-    font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
-  }
+body {
+width: 800px;
+height: 480px;
+overflow: hidden;
+background: #000;
+font-family: ‘Comic Sans MS’, ‘Chalkboard SE’, cursive;
+}
 
-  .scene {
-    position: relative;
-    width: 800px;
-    heig
-  /* Background fills full canvas */
-  .bg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1;
-  }
+.scene {
+position: relative;
+width: 800px;
+height: 480px;
+overflow: hidden;
+}
 
-  /* Side panels - left and right */
-  .cc-side {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 22%;
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 6px;
-    padding: 8px 6px;
-  }
+/* Background fills full canvas */
+.bg {
+position: absolute;
+inset: 0;
+width: 100%;
+height: 100%;
+object-fit: cover;
+z-index: 1;
+}
 
-  .cc-side--left  { left: 0; }
-  .cc-side--right { right: 0; }
-  .cc-side--bottom { justify-content: flex-end; }
+/* Side panels - left and right */
+.cc-side {
+position: absolute;
+top: 0;
+bottom: 0;
+width: 26%;
+z-index: 10;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: flex-start;
+gap: 6px;
+padding: 8px 6px;
+}
+.cc-side–left  { left: 0; }
+.cc-side–right { right: 0; }
+.cc-side–bottom { justify-content: flex-end; }
 
-  /* Frame + sprite wrapper */
-  .cc-frame-wrap {
-    position: relative;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+/* Frame + sprite wrapper */
+.cc-frame-wrap {
+position: relative;
+width: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.cc-frame {
+position: absolute;
+display: block;
+}
+.cc-sprite {
+position: relative;
+display: block;
+z-index: 2;
+}
 
-  .cc-frame {
-    position: absolute;
-    display: block;
-  }
+/* Speech bubbles */
+.cc-bubble {
+border: 2.5px solid #000;
+font-size: 13px;
+font-weight: bold;
+line-height: 1.3;
+width: 100%;
+word-break: break-word;
+padding: 4px 6px;
+border-radius: 6px;
+z-index: 50;
+position: relative;
+}
+.cc-bubble–dark  { background: #000; color: #fff; }
+.cc-bubble–light { background: #fff; color: #000; }
 
-  .cc-sprite {
-    position: relative;
-    display: block;
-    z-index: 2;
-  }
-
-  /* Speech bubbles */
-  .cc-bubble {
-    border: 2.5px solid #000;
-    font-size: 11px;
-    font-weight: bold;
-    line-height: 1.3;
-    width: 100%;
-    word-break: break-word;
-    padding: 4px 6px;
-    border-radius: 6px;
-    z-index: 50;
-    position: relative;
-  }
-
-  .cc-bubble--dark  { background: #000; color: #fff; }
-  .cc-bubble--light { background: #fff; color: #000; }
-
-  /* Center escalation bubble */
-  .cc-center-bubble {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: max-content;
-    max-width: 44%;
-    z-index: 50;
-    border: 2.5px solid #000;
-    border-radius: 6px;
-    font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
-    font-size: 11px;
-    font-weight: bold;
-    line-height: 1.3;
-    padding: 4px 8px;
-    text-align: center;
-  }
-
-  .cc-center-bubble--top    { top: 10px; }
-  .cc-center-bubble--bottom { bottom: 18px; }
-  .cc-center-bubble--dark   { background: #000; color: #fff; }
-  .cc-center-bubble--light  { background: #fff; color: #000; }
+/* Center escalation bubble */
+.cc-center-bubble {
+position: absolute;
+left: 50%;
+transform: translateX(-50%);
+width: max-content;
+max-width: 45%;
+z-index: 50;
+border: 2.5px solid #000;
+border-radius: 6px;
+font-family: ‘Comic Sans MS’, ‘Chalkboard SE’, cursive;
+font-size: 13px;
+font-weight: bold;
+line-height: 1.3;
+padding: 4px 8px;
+text-align: center;
+}
+.cc-center-bubble–top    { top: 10px; }
+.cc-center-bubble–bottom { bottom: 18px; }
+.cc-center-bubble–dark   { background: #000; color: #fff; }
+.cc-center-bubble–light  { background: #fff; color: #000; }
 </style>
+
 </head>
 <body>
 <div class="scene" id="scene">
   <img class="bg" id="bg" src="" alt=""/>
+
+  <!-- Left panel -->
 
   <div class="cc-side cc-side--left" id="left-panel">
     <div class="cc-frame-wrap" id="left-frame-wrap">
@@ -121,6 +123,8 @@
     <div class="cc-bubble" id="left-bubble"></div>
   </div>
 
+  <!-- Right panel -->
+
   <div class="cc-side cc-side--right" id="right-panel">
     <div class="cc-frame-wrap" id="right-frame-wrap">
       <img class="cc-frame" id="right-frame" src="" alt="" style="display:none"/>
@@ -129,10 +133,13 @@
     <div class="cc-bubble" id="right-bubble"></div>
   </div>
 
+  <!-- Center escalation bubble -->
+
   <div class="cc-center-bubble" id="center-bubble"></div>
 </div>
 
 <script>
+// ─── ASSETS ──────────────────────────────────────────────────────────────────
 const BACKGROUNDS = [
   "https://raw.githubusercontent.com/CozyScenes/cozy-scenes-assets/main/dcm/backgrounds/1qvms3.png",
   "https://raw.githubusercontent.com/CozyScenes/cozy-scenes-assets/main/dcm/backgrounds/267upo.png",
@@ -201,6 +208,7 @@ const SPRITES = [
   "https://raw.githubusercontent.com/CozyScenes/cozy-scenes-assets/main/dcm/sprites/zgzigi.png"
 ];
 
+// ─── TEXT POOLS (same as your Liquid) ────────────────────────────────────────
 const TEXT = {
   setup: [
     ["I made myself a warm drink and decided today would be gentle","I wrapped myself in a blanket and called it a plan","I told myself today was for resting and meant it","I lit a candle and decided that counted as self care"],
@@ -225,13 +233,16 @@ const TEXT = {
   ]
 };
 
+// ─── SEEDED RNG (deterministic per day, unique per device) ───────────────────
+// date part = same strip shape each day
+// deviceSalt = each owner gets their own combo from the pool
 function getDeviceSalt() {
   let s = localStorage.getItem('cc_salt');
   if (!s) {
     s = Math.floor(Math.random() * 99991).toString();
     localStorage.setItem('cc_salt', s);
   }
-  return parseInt(s, 10);
+  return parseInt(s);
 }
 
 function makeSeed() {
@@ -239,6 +250,7 @@ function makeSeed() {
   return Math.floor(Date.now() / 1000) * 7 + salt;
 }
 
+// Simple LCG — same sequence every time for same seed
 function makeRng(seed) {
   let s = seed >>> 0;
   return {
@@ -247,79 +259,97 @@ function makeRng(seed) {
       return s;
     },
     pick(arr) { return arr[this.next() % arr.length]; },
-    bool() { return (this.next() % 2) === 0; },
+    bool()    { return (this.next() % 2) === 0; },
     range(lo, hi) { return lo + (this.next() % (hi - lo + 1)); }
   };
 }
 
+// ─── BUILD THE SCENE ─────────────────────────────────────────────────────────
 function build() {
   const rng = makeRng(makeSeed());
 
-  const bg = rng.pick(BACKGROUNDS);
-  const frameLeft = rng.pick(FRAMES);
-  const frameRight = rng.pick(FRAMES);
-  const spriteLeft = rng.pick(SPRITES);
+  // Asset picks
+  const bg          = rng.pick(BACKGROUNDS);
+  const frameLeft   = rng.pick(FRAMES);
+  const frameRight  = rng.pick(FRAMES);
+  const spriteLeft  = rng.pick(SPRITES);
   const spriteRight = rng.pick(SPRITES);
 
-  const mood = rng.next() % 5;
-  const setup = rng.pick(TEXT.setup[mood]);
-  const escalation = rng.pick(TEXT.escalation[mood]);
-  const punchline = rng.pick(TEXT.punchline[mood]);
+  // Text picks
+  const mood        = rng.next() % 5;
+  const setup       = rng.pick(TEXT.setup[mood]);
+  const escalation  = rng.pick(TEXT.escalation[mood]);
+  const punchline   = rng.pick(TEXT.punchline[mood]);
 
-  const leftDark = rng.bool();
-  const rightDark = rng.bool();
-  const centerDark = rng.bool();
-  const leftBottom = rng.bool();
-  const rightBottom = rng.bool();
-  const centerBottom = rng.bool();
-  const flipLeft = rng.bool();
-  const flipRight = rng.bool();
-  const flipFrameLeft = rng.bool();
+  // Style picks
+  const leftDark       = rng.bool();
+  const rightDark      = rng.bool();
+  const centerDark     = rng.bool();
+  const leftBottom     = rng.bool();   // bubble below sprite?
+  const rightBottom    = rng.bool();
+  const centerBottom   = rng.bool();   // escalation at top or bottom?
+  const flipLeft       = rng.bool();
+  const flipRight      = rng.bool();
+  const flipCenter     = rng.bool();
+  const flipFrameLeft  = rng.bool();
   const flipFrameRight = rng.bool();
 
-  const rots = ["0deg", "90deg", "180deg", "270deg"];
+  // Frame rotation (0/90/180/270)
+  const rots = ["0deg","90deg","180deg","270deg"];
   const rotFL = rng.pick(rots);
   const rotFR = rng.pick(rots);
 
-  const frameSizeL = rng.range(75, 105);
-  const frameSizeR = rng.range(75, 105);
+  // Sizes
+  const frameSizeL  = rng.range(75, 105);
+  const frameSizeR  = rng.range(75, 105);
   const spriteSizeL = rng.range(60, 90);
   const spriteSizeR = rng.range(60, 90);
 
+  // ── Apply ────────────────────────────────────────────────────────────────
   document.getElementById('bg').src = bg;
 
+  // Left panel
   const leftPanel = document.getElementById('left-panel');
   leftPanel.className = 'cc-side cc-side--left' + (leftBottom ? ' cc-side--bottom' : '');
 
   const lf = document.getElementById('left-frame');
   lf.src = frameLeft;
-  lf.style.cssText = `width:${frameSizeL}%; transform:rotate(${rotFL}) scaleX(${flipFrameLeft ? -1 : 1}); display:block;`;
+  lf.style.cssText = `width:${frameSizeL}%; transform:rotate(${rotFL}) scaleX(${flipFrameLeft?-1:1}); display:block;`;
 
   const ls = document.getElementById('left-sprite');
   ls.src = spriteLeft;
-  ls.style.cssText = `width:${spriteSizeL}%; transform:scaleX(${flipLeft ? -1 : 1});`;
+  ls.style.cssText = `width:${spriteSizeL}%; transform:scaleX(${flipLeft?-1:1});`;
 
   const lb = document.getElementById('left-bubble');
   lb.textContent = setup;
   lb.className = 'cc-bubble ' + (leftDark ? 'cc-bubble--dark' : 'cc-bubble--light');
 
+  // Right panel
   const rightPanel = document.getElementById('right-panel');
   rightPanel.className = 'cc-side cc-side--right' + (rightBottom ? ' cc-side--bottom' : '');
 
   const rf = document.getElementById('right-frame');
   rf.src = frameRight;
-  rf.style.cssText = `width:${frameSizeR}%; transform:rotate(${rotFR}) scaleX(${flipFrameRight ? -1 : 1}); display:block;`;
+  rf.style.cssText = `width:${frameSizeR}%; transform:rotate(${rotFR}) scaleX(${flipFrameRight?-1:1}); display:block;`;
 
   const rs = document.getElementById('right-sprite');
   rs.src = spriteRight;
-  rs.style.cssText = `width:${spriteSizeR}%; transform:scaleX(${flipRight ? -1 : 1});`;
+  rs.style.cssText = `width:${spriteSizeR}%; transform:scaleX(${flipRight?-1:1});`;
 
   const rb = document.getElementById('right-bubble');
   rb.textContent = punchline;
   rb.className = 'cc-bubble ' + (rightDark ? 'cc-bubble--dark' : 'cc-bubble--light');
 
+  // Center bubble
   const cb = document.getElementById('center-bubble');
   cb.textContent = escalation;
   cb.className = 'cc-center-bubble '
     + (centerBottom ? 'cc-center-bubble--bottom' : 'cc-center-bubble--top') + ' '
-    + (centerDark ? 'c
+    + (centerDark   ? 'cc-center-bubble--dark'   : 'cc-center-bubble--light');
+}
+
+build();
+</script>
+
+</body>
+</html>
