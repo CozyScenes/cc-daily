@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=800"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>CC Daily</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  width: 800px;
-  height: 480px;
+html, body {
+  width: 100%;
+  height: 100%;
   overflow: hidden;
   background: #000;
   font-family: sans-serif;
 }
 .scene {
   position: relative;
-  width: 800px;
-  height: 480px;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
 }
 .bg {
@@ -31,13 +31,13 @@ body {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 30%;
+  width: 28%;
   z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  padding: 8px 6px;
+  gap: 1vh;
+  padding: 1.5vh 1vw;
 }
 .framewrap {
   position: relative;
@@ -56,14 +56,14 @@ body {
   z-index: 2;
 }
 .bubble {
-  border: 2.5px solid #000;
-  font-size: 16px;
+  border: 0.3vh solid #000;
+  font-size: 1.8vh;
   font-weight: bold;
   line-height: 1.3;
   width: 100%;
   word-break: break-word;
-  padding: 5px 7px;
-  border-radius: 6px;
+  padding: 0.5vh 0.8vw;
+  border-radius: 0.8vh;
   z-index: 50;
   position: relative;
 }
@@ -72,16 +72,17 @@ body {
   left: 50%;
   transform: translateX(-50%);
   width: max-content;
-  max-width: 52%;
+  max-width: 44%;
   z-index: 50;
-  border: 2.5px solid #000;
-  border-radius: 6px;
+  border: 0.3vh solid #000;
+  border-radius: 0.8vh;
   font-family: sans-serif;
-  font-size: 16px;
+  font-size: 1.8vh;
   font-weight: bold;
   line-height: 1.3;
-  padding: 5px 10px;
+  padding: 0.5vh 1vw;
   text-align: center;
+  white-space: normal;
 }
 </style>
 </head>
@@ -238,16 +239,16 @@ function build() {
   const escalation = rng.pick(TEXT.escalation[mood]);
   const punchline  = rng.pick(TEXT.punchline[mood]);
 
-  const leftDark      = rng.bool();
-  const rightDark     = rng.bool();
-  const centerDark    = rng.bool();
-  const leftBottom    = rng.bool();
-  const rightBottom   = rng.bool();
-  const centerBottom  = rng.bool();
-  const flipLeft      = rng.bool();
-  const flipRight     = rng.bool();
-  const flipFrameLeft = rng.bool();
-  const flipFrameRight= rng.bool();
+  const leftDark       = rng.bool();
+  const rightDark      = rng.bool();
+  const centerDark     = rng.bool();
+  const leftBottom     = rng.bool();
+  const rightBottom    = rng.bool();
+  const centerBottom   = rng.bool();
+  const flipLeft       = rng.bool();
+  const flipRight      = rng.bool();
+  const flipFrameLeft  = rng.bool();
+  const flipFrameRight = rng.bool();
 
   const rots  = ["0deg","90deg","180deg","270deg"];
   const rotFL = rng.pick(rots);
@@ -258,10 +259,8 @@ function build() {
   const spriteSizeL = rng.range(75, 105);
   const spriteSizeR = rng.range(75, 105);
 
-  // background
   document.getElementById('bg').src = bg;
 
-  // left panel
   const lp = document.getElementById('leftpanel');
   lp.style.justifyContent = leftBottom ? 'flex-end' : 'flex-start';
 
@@ -278,7 +277,6 @@ function build() {
   lb.style.background = leftDark ? '#000' : '#fff';
   lb.style.color = leftDark ? '#fff' : '#000';
 
-  // right panel
   const rp = document.getElementById('rightpanel');
   rp.style.justifyContent = rightBottom ? 'flex-end' : 'flex-start';
 
@@ -295,11 +293,10 @@ function build() {
   rb.style.background = rightDark ? '#000' : '#fff';
   rb.style.color = rightDark ? '#fff' : '#000';
 
-  // center bubble
   const cb = document.getElementById('centerbubble');
   cb.textContent = escalation;
-  cb.style.top = centerBottom ? 'auto' : '10px';
-  cb.style.bottom = centerBottom ? '18px' : 'auto';
+  cb.style.top = centerBottom ? 'auto' : '2vh';
+  cb.style.bottom = centerBottom ? '2vh' : 'auto';
   cb.style.background = centerDark ? '#000' : '#fff';
   cb.style.color = centerDark ? '#fff' : '#000';
 }
