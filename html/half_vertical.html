@@ -33,6 +33,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: #000; font
     <div class="framewrap"><img class="frameimg" id="rightframe" src="" style="display:none"/><img class="spriteimg" id="rightsprite" src=""/></div>
   </div>
 </div>
+
 <script>
 const BACKGROUNDS = [
   "https://raw.githubusercontent.com/CozyScenes/cozy-scenes-assets/main/dcm/backgrounds/1qvms3.png",
@@ -65,14 +66,12 @@ const BACKGROUNDS = [
   "https://raw.githubusercontent.com/CozyScenes/cozy-scenes-assets/main/dcm/backgrounds/yuyavu.png",
   "https://raw.githubusercontent.com/CozyScenes/cozy-scenes-assets/main/dcm/backgrounds/zayiy9.png"
 ];
-
 const FRAMES = [
   "https://raw.githubusercontent.com/CozyScenes/cozy-scenes-assets/main/dcm/frames/0ra43m.png",
   "https://raw.githubusercontent.com/CozyScenes/cozy-scenes-assets/main/dcm/frames/h618s9.png",
   "https://raw.githubusercontent.com/CozyScenes/cozy-scenes-assets/main/dcm/frames/r6rz8x.png",
   "https://raw.githubusercontent.com/CozyScenes/cozy-scenes-assets/main/dcm/frames/t08n7r.png"
 ];
-
 const SPRITES = [
   "https://raw.githubusercontent.com/CozyScenes/cozy-scenes-assets/main/dcm/sprites/06proo.png",
   "https://raw.githubusercontent.com/CozyScenes/cozy-scenes-assets/main/dcm/sprites/43bzzc.png",
@@ -101,7 +100,6 @@ const SPRITES = [
   "https://raw.githubusercontent.com/CozyScenes/cozy-scenes-assets/main/dcm/sprites/yyt9fh.png",
   "https://raw.githubusercontent.com/CozyScenes/cozy-scenes-assets/main/dcm/sprites/zgzigi.png"
 ];
-
 const TEXT = {
   setup: [
     ["I made myself a warm drink and decided today would be gentle","I wrapped myself in a blanket and called it a plan","I told myself today was for resting and meant it","I lit a candle and decided that counted as self care"],
@@ -125,20 +123,12 @@ const TEXT = {
     ["so now I'm just here. the snack was good though.","I'll fix everything tomorrow. or the day after.","everything is fine the snack was excellent","I regret nothing and plan to do it again tomorrow"]
   ]
 };
-
 function getDeviceSalt() {
   let s = localStorage.getItem('cc_salt');
-  if (!s) {
-    s = Math.floor(Math.random() * 99991).toString();
-    localStorage.setItem('cc_salt', s);
-  }
+  if (!s) { s = Math.floor(Math.random() * 99991).toString(); localStorage.setItem('cc_salt', s); }
   return parseInt(s);
 }
-
-function makeSeed() {
-  return Math.floor(Date.now() / 1000) * 7 + getDeviceSalt();
-}
-
+function makeSeed() { return Math.floor(Date.now() / 1000) * 7 + getDeviceSalt(); }
 function makeRng(seed) {
   let s = seed >>> 0;
   return {
@@ -148,45 +138,35 @@ function makeRng(seed) {
     range(lo, hi) { return lo + (this.next() % (hi - lo + 1)); }
   };
 }
-
 function build() {
   const rng = makeRng(makeSeed());
-
-  const bg          = rng.pick(BACKGROUNDS);
-  const frameLeft   = rng.pick(FRAMES);
-  const frameRight  = rng.pick(FRAMES);
-  const spriteLeft  = rng.pick(SPRITES);
+  const bg = rng.pick(BACKGROUNDS);
+  const frameLeft = rng.pick(FRAMES);
+  const frameRight = rng.pick(FRAMES);
+  const spriteLeft = rng.pick(SPRITES);
   const spriteRight = rng.pick(SPRITES);
-
-  const mood       = rng.next() % 5;
-  const setup      = rng.pick(TEXT.setup[mood]);
+  const mood = rng.next() % 5;
+  const setup = rng.pick(TEXT.setup[mood]);
   const escalation = rng.pick(TEXT.escalation[mood]);
-  const punchline  = rng.pick(TEXT.punchline[mood]);
-
-  const leftDark       = rng.bool();
-  const rightDark      = rng.bool();
-  const centerDark     = rng.bool();
-  const leftBottom     = rng.bool();
-  const rightBottom    = rng.bool();
-  const centerBottom   = rng.bool();
-  const flipLeft       = rng.bool();
-  const flipRight      = rng.bool();
-  const flipFrameLeft  = rng.bool();
+  const punchline = rng.pick(TEXT.punchline[mood]);
+  const leftDark = rng.bool();
+  const rightDark = rng.bool();
+  const centerDark = rng.bool();
+  const centerBottom = rng.bool();
+  const flipLeft = rng.bool();
+  const flipRight = rng.bool();
+  const flipFrameLeft = rng.bool();
   const flipFrameRight = rng.bool();
-
-  const rots  = ["0deg","90deg","180deg","270deg"];
+  const rots = ["0deg","90deg","180deg","270deg"];
   const rotFL = rng.pick(rots);
   const rotFR = rng.pick(rots);
+  const frameSizeL = rng.range(55, 76);
+  const frameSizeR = rng.range(55, 76);
+  const spriteSizeL = rng.range(45, 66);
+  const spriteSizeR = rng.range(45, 66);
 
-  const frameSizeL  = rng.range(75, 105);
-  const frameSizeR  = rng.range(75, 105);
-  const spriteSizeL = rng.range(75, 105);
-  const spriteSizeR = rng.range(75, 105);
-
-  document.getElementById('bglayer1').src = bg; document.getElementById('bglayer2').src = bg;
-
-  const lp = document.getElementById('leftpanel');
-  lp.style.justifyContent = leftBottom ? 'flex-end' : 'flex-start';
+  document.getElementById('bglayer1').src = bg;
+  document.getElementById('bglayer2').src = bg;
 
   const lf = document.getElementById('leftframe');
   lf.src = frameLeft;
@@ -200,9 +180,6 @@ function build() {
   lb.textContent = setup;
   lb.style.background = leftDark ? '#000' : '#fff';
   lb.style.color = leftDark ? '#fff' : '#000';
-
-  const rp = document.getElementById('rightpanel');
-  rp.style.justifyContent = rightBottom ? 'flex-end' : 'flex-start';
 
   const rf = document.getElementById('rightframe');
   rf.src = frameRight;
@@ -219,12 +196,11 @@ function build() {
 
   const cb = document.getElementById('centerbubble');
   cb.textContent = escalation;
-  cb.style.top = centerBottom ? 'auto' : '2vh';
-  cb.style.bottom = centerBottom ? '2vh' : 'auto';
+  cb.style.top = centerBottom ? 'auto' : '35%';
+  cb.style.bottom = centerBottom ? '35%' : 'auto';
   cb.style.background = centerDark ? '#000' : '#fff';
   cb.style.color = centerDark ? '#fff' : '#000';
 }
-
 build();
 </script>
 </body>
