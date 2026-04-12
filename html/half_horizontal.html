@@ -182,7 +182,7 @@ function build() {
   const spriteSizeL = rng.range(75, 105);
   const spriteSizeR = rng.range(75, 105);
 
-  document.getElementById('bg').src = bg;
+  document.getElementById('bgstretch').src = bg; document.getElementById('bgfit').src = bg;
 
   const lp = document.getElementById('leftpanel');
   lp.style.justifyContent = leftBottom ? 'flex-end' : 'flex-start';
