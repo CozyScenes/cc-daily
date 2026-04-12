@@ -6,140 +6,110 @@
 <meta name="viewport" content="width=800"/>
 <title>CC Daily</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
+* { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-width: 800px;
-height: 480px;
-overflow: hidden;
-background: #000;
-font-family: ‘Comic Sans MS’, ‘Chalkboard SE’, cursive;
+  width: 800px;
+  height: 480px;
+  overflow: hidden;
+  background: #000;
+  font-family: Comic Sans MS, Chalkboard SE, cursive;
 }
-
 .scene {
-position: relative;
-width: 800px;
-height: 480px;
-overflow: hidden;
+  position: relative;
+  width: 800px;
+  height: 480px;
+  overflow: hidden;
 }
-
-/* Background fills full canvas */
 .bg {
-position: absolute;
-inset: 0;
-width: 100%;
-height: 100%;
-object-fit: cover;
-z-index: 1;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
 }
-
-/* Side panels - left and right */
-.cc-side {
-position: absolute;
-top: 0;
-bottom: 0;
-width: 26%;
-z-index: 10;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: flex-start;
-gap: 6px;
-padding: 8px 6px;
+.side {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 26%;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 6px;
 }
-.cc-side–left  { left: 0; }
-.cc-side–right { right: 0; }
-.cc-side–bottom { justify-content: flex-end; }
-
-/* Frame + sprite wrapper */
-.cc-frame-wrap {
-position: relative;
-width: 100%;
-display: flex;
-align-items: center;
-justify-content: center;
+.framewrap {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.cc-frame {
-position: absolute;
-display: block;
+.frameimg {
+  position: absolute;
+  display: block;
 }
-.cc-sprite {
-position: relative;
-display: block;
-z-index: 2;
+.spriteimg {
+  position: relative;
+  display: block;
+  z-index: 2;
 }
-
-/* Speech bubbles */
-.cc-bubble {
-border: 2.5px solid #000;
-font-size: 13px;
-font-weight: bold;
-line-height: 1.3;
-width: 100%;
-word-break: break-word;
-padding: 4px 6px;
-border-radius: 6px;
-z-index: 50;
-position: relative;
+.bubble {
+  border: 2.5px solid #000;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 1.3;
+  width: 100%;
+  word-break: break-word;
+  padding: 4px 6px;
+  border-radius: 6px;
+  z-index: 50;
+  position: relative;
 }
-.cc-bubble–dark  { background: #000; color: #fff; }
-.cc-bubble–light { background: #fff; color: #000; }
-
-/* Center escalation bubble */
-.cc-center-bubble {
-position: absolute;
-left: 50%;
-transform: translateX(-50%);
-width: max-content;
-max-width: 45%;
-z-index: 50;
-border: 2.5px solid #000;
-border-radius: 6px;
-font-family: ‘Comic Sans MS’, ‘Chalkboard SE’, cursive;
-font-size: 13px;
-font-weight: bold;
-line-height: 1.3;
-padding: 4px 8px;
-text-align: center;
+.centerbubble {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 45%;
+  z-index: 50;
+  border: 2.5px solid #000;
+  border-radius: 6px;
+  font-family: Comic Sans MS, Chalkboard SE, cursive;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 1.3;
+  padding: 4px 8px;
+  text-align: center;
 }
-.cc-center-bubble–top    { top: 10px; }
-.cc-center-bubble–bottom { bottom: 18px; }
-.cc-center-bubble–dark   { background: #000; color: #fff; }
-.cc-center-bubble–light  { background: #fff; color: #000; }
 </style>
-
 </head>
 <body>
 <div class="scene" id="scene">
   <img class="bg" id="bg" src="" alt=""/>
 
-  <!-- Left panel -->
-
-  <div class="cc-side cc-side--left" id="left-panel">
-    <div class="cc-frame-wrap" id="left-frame-wrap">
-      <img class="cc-frame" id="left-frame" src="" alt="" style="display:none"/>
-      <img class="cc-sprite" id="left-sprite" src="" alt=""/>
+  <div class="side" id="leftpanel" style="left:0; justify-content:flex-start;">
+    <div class="framewrap">
+      <img class="frameimg" id="leftframe" src="" alt="" style="display:none"/>
+      <img class="spriteimg" id="leftsprite" src="" alt=""/>
     </div>
-    <div class="cc-bubble" id="left-bubble"></div>
+    <div class="bubble" id="leftbubble"></div>
   </div>
 
-  <!-- Right panel -->
-
-  <div class="cc-side cc-side--right" id="right-panel">
-    <div class="cc-frame-wrap" id="right-frame-wrap">
-      <img class="cc-frame" id="right-frame" src="" alt="" style="display:none"/>
-      <img class="cc-sprite" id="right-sprite" src="" alt=""/>
+  <div class="side" id="rightpanel" style="right:0; justify-content:flex-start;">
+    <div class="framewrap">
+      <img class="frameimg" id="rightframe" src="" alt="" style="display:none"/>
+      <img class="spriteimg" id="rightsprite" src="" alt=""/>
     </div>
-    <div class="cc-bubble" id="right-bubble"></div>
+    <div class="bubble" id="rightbubble"></div>
   </div>
 
-  <!-- Center escalation bubble -->
-
-  <div class="cc-center-bubble" id="center-bubble"></div>
+  <div class="centerbubble" id="centerbubble"></div>
 </div>
 
 <script>
-// ─── ASSETS ──────────────────────────────────────────────────────────────────
 const BACKGROUNDS = [
   "https://raw.githubusercontent.com/CozyScenes/cozy-scenes-assets/main/dcm/backgrounds/1qvms3.png",
   "https://raw.githubusercontent.com/CozyScenes/cozy-scenes-assets/main/dcm/backgrounds/267upo.png",
@@ -208,7 +178,6 @@ const SPRITES = [
   "https://raw.githubusercontent.com/CozyScenes/cozy-scenes-assets/main/dcm/sprites/zgzigi.png"
 ];
 
-// ─── TEXT POOLS (same as your Liquid) ────────────────────────────────────────
 const TEXT = {
   setup: [
     ["I made myself a warm drink and decided today would be gentle","I wrapped myself in a blanket and called it a plan","I told myself today was for resting and meant it","I lit a candle and decided that counted as self care"],
@@ -233,9 +202,6 @@ const TEXT = {
   ]
 };
 
-// ─── SEEDED RNG (deterministic per day, unique per device) ───────────────────
-// date part = same strip shape each day
-// deviceSalt = each owner gets their own combo from the pool
 function getDeviceSalt() {
   let s = localStorage.getItem('cc_salt');
   if (!s) {
@@ -246,106 +212,97 @@ function getDeviceSalt() {
 }
 
 function makeSeed() {
-  const salt = getDeviceSalt();
-  return Math.floor(Date.now() / 1000) * 7 + salt;
+  return Math.floor(Date.now() / 1000) * 7 + getDeviceSalt();
 }
 
-// Simple LCG — same sequence every time for same seed
 function makeRng(seed) {
   let s = seed >>> 0;
   return {
-    next() {
-      s = (Math.imul(1664525, s) + 1013904223) >>> 0;
-      return s;
-    },
+    next() { s = (Math.imul(1664525, s) + 1013904223) >>> 0; return s; },
     pick(arr) { return arr[this.next() % arr.length]; },
-    bool()    { return (this.next() % 2) === 0; },
+    bool() { return (this.next() % 2) === 0; },
     range(lo, hi) { return lo + (this.next() % (hi - lo + 1)); }
   };
 }
 
-// ─── BUILD THE SCENE ─────────────────────────────────────────────────────────
 function build() {
   const rng = makeRng(makeSeed());
 
-  // Asset picks
   const bg          = rng.pick(BACKGROUNDS);
   const frameLeft   = rng.pick(FRAMES);
   const frameRight  = rng.pick(FRAMES);
   const spriteLeft  = rng.pick(SPRITES);
   const spriteRight = rng.pick(SPRITES);
 
-  // Text picks
-  const mood        = rng.next() % 5;
-  const setup       = rng.pick(TEXT.setup[mood]);
-  const escalation  = rng.pick(TEXT.escalation[mood]);
-  const punchline   = rng.pick(TEXT.punchline[mood]);
+  const mood       = rng.next() % 5;
+  const setup      = rng.pick(TEXT.setup[mood]);
+  const escalation = rng.pick(TEXT.escalation[mood]);
+  const punchline  = rng.pick(TEXT.punchline[mood]);
 
-  // Style picks
-  const leftDark       = rng.bool();
-  const rightDark      = rng.bool();
-  const centerDark     = rng.bool();
-  const leftBottom     = rng.bool();   // bubble below sprite?
-  const rightBottom    = rng.bool();
-  const centerBottom   = rng.bool();   // escalation at top or bottom?
-  const flipLeft       = rng.bool();
-  const flipRight      = rng.bool();
-  const flipCenter     = rng.bool();
-  const flipFrameLeft  = rng.bool();
-  const flipFrameRight = rng.bool();
+  const leftDark      = rng.bool();
+  const rightDark     = rng.bool();
+  const centerDark    = rng.bool();
+  const leftBottom    = rng.bool();
+  const rightBottom   = rng.bool();
+  const centerBottom  = rng.bool();
+  const flipLeft      = rng.bool();
+  const flipRight     = rng.bool();
+  const flipFrameLeft = rng.bool();
+  const flipFrameRight= rng.bool();
 
-  // Frame rotation (0/90/180/270)
-  const rots = ["0deg","90deg","180deg","270deg"];
+  const rots  = ["0deg","90deg","180deg","270deg"];
   const rotFL = rng.pick(rots);
   const rotFR = rng.pick(rots);
 
-  // Sizes
   const frameSizeL  = rng.range(75, 105);
   const frameSizeR  = rng.range(75, 105);
   const spriteSizeL = rng.range(60, 90);
   const spriteSizeR = rng.range(60, 90);
 
-  // ── Apply ────────────────────────────────────────────────────────────────
+  // background
   document.getElementById('bg').src = bg;
 
-  // Left panel
-  const leftPanel = document.getElementById('left-panel');
-  leftPanel.className = 'cc-side cc-side--left' + (leftBottom ? ' cc-side--bottom' : '');
+  // left panel
+  const lp = document.getElementById('leftpanel');
+  lp.style.justifyContent = leftBottom ? 'flex-end' : 'flex-start';
 
-  const lf = document.getElementById('left-frame');
+  const lf = document.getElementById('leftframe');
   lf.src = frameLeft;
-  lf.style.cssText = `width:${frameSizeL}%; transform:rotate(${rotFL}) scaleX(${flipFrameLeft?-1:1}); display:block;`;
+  lf.style.cssText = 'width:' + frameSizeL + '%; transform:rotate(' + rotFL + ') scaleX(' + (flipFrameLeft ? -1 : 1) + '); display:block;';
 
-  const ls = document.getElementById('left-sprite');
+  const ls = document.getElementById('leftsprite');
   ls.src = spriteLeft;
-  ls.style.cssText = `width:${spriteSizeL}%; transform:scaleX(${flipLeft?-1:1});`;
+  ls.style.cssText = 'width:' + spriteSizeL + '%; transform:scaleX(' + (flipLeft ? -1 : 1) + ');';
 
-  const lb = document.getElementById('left-bubble');
+  const lb = document.getElementById('leftbubble');
   lb.textContent = setup;
-  lb.className = 'cc-bubble ' + (leftDark ? 'cc-bubble--dark' : 'cc-bubble--light');
+  lb.style.background = leftDark ? '#000' : '#fff';
+  lb.style.color = leftDark ? '#fff' : '#000';
 
-  // Right panel
-  const rightPanel = document.getElementById('right-panel');
-  rightPanel.className = 'cc-side cc-side--right' + (rightBottom ? ' cc-side--bottom' : '');
+  // right panel
+  const rp = document.getElementById('rightpanel');
+  rp.style.justifyContent = rightBottom ? 'flex-end' : 'flex-start';
 
-  const rf = document.getElementById('right-frame');
+  const rf = document.getElementById('rightframe');
   rf.src = frameRight;
-  rf.style.cssText = `width:${frameSizeR}%; transform:rotate(${rotFR}) scaleX(${flipFrameRight?-1:1}); display:block;`;
+  rf.style.cssText = 'width:' + frameSizeR + '%; transform:rotate(' + rotFR + ') scaleX(' + (flipFrameRight ? -1 : 1) + '); display:block;';
 
-  const rs = document.getElementById('right-sprite');
+  const rs = document.getElementById('rightsprite');
   rs.src = spriteRight;
-  rs.style.cssText = `width:${spriteSizeR}%; transform:scaleX(${flipRight?-1:1});`;
+  rs.style.cssText = 'width:' + spriteSizeR + '%; transform:scaleX(' + (flipRight ? -1 : 1) + ');';
 
-  const rb = document.getElementById('right-bubble');
+  const rb = document.getElementById('rightbubble');
   rb.textContent = punchline;
-  rb.className = 'cc-bubble ' + (rightDark ? 'cc-bubble--dark' : 'cc-bubble--light');
+  rb.style.background = rightDark ? '#000' : '#fff';
+  rb.style.color = rightDark ? '#fff' : '#000';
 
-  // Center bubble
-  const cb = document.getElementById('center-bubble');
+  // center bubble
+  const cb = document.getElementById('centerbubble');
   cb.textContent = escalation;
-  cb.className = 'cc-center-bubble '
-    + (centerBottom ? 'cc-center-bubble--bottom' : 'cc-center-bubble--top') + ' '
-    + (centerDark   ? 'cc-center-bubble--dark'   : 'cc-center-bubble--light');
+  cb.style.top = centerBottom ? 'auto' : '10px';
+  cb.style.bottom = centerBottom ? '18px' : 'auto';
+  cb.style.background = centerDark ? '#000' : '#fff';
+  cb.style.color = centerDark ? '#fff' : '#000';
 }
 
 build();
